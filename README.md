@@ -1,1 +1,1 @@
-Our first collaboration readme
+The printf project is a collaboration between Benita Onwubuya and Jones Mereu to implement a function "_printf" that imitates the "printf" command in the C stdio.h library. It contains some of the basic features and functions found in the Linux manual 3 of "printf".
