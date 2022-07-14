@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include <stdarg.h>	
-
+#include <stdarg.h>		
 
 int _printf(char *,...); 			
 char* convert(unsigned int, int); 
-
+	
 int _printf(char* format,...)
 {
 	char *traverse;
@@ -65,7 +64,7 @@ char *convert(unsigned int num, int base)
 	static char Representation[]= "0123456789ABCDEF";
 	static char buffer[50];
 	char *ptr;
-
+	
 	ptr = &buffer[49];
 	*ptr = '\0';
 	
@@ -74,5 +73,6 @@ char *convert(unsigned int num, int base)
 		*--ptr = Representation[num%base];
 		num /= base;
 	}while(num != 0);
+	
 	return(ptr);
 }
