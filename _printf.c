@@ -1,47 +1,78 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdarg.h>	
 
-/**
- * _printf - produces output according to a format
- * @format: format string containing the characters and the specifiers
- * Description: this function will call the get_print() function that will
- * determine which printing function to call depending on the conversion
- * specifiers contained into fmt
- * Return: length of the formatted output string
- */
-int _printf(const char *format, ...)
+
+int _printf(char *,...); 			
+char* convert(unsigned int, int); 
+
+int _printf(char* format,...)
 {
-	int (*pfunc)(va_list, flags_t *);
-	const char *p;
-	va_list arguments;
-	flags_t flags = {0, 0, 0};
-
-	register int count = 0;
-
-	va_start(arguments, format);
-	if (!format || (format[0] == '%' && !format[1]))
-		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
-		return (-1);
-	for (p = format; *p; p++)
+	char *traverse;
+	unsigned int i;
+	char *s;
+	int stringCount = 0;
+	
+	va_list arg;
+	va_start(arg, format);
+	
+	for(traverse = format; *traverse != '\0'; traverse++)
 	{
-		if (*p == '%')
+		while( *traverse != '%' && *traverse != '\0')
 		{
-			p++;
-			if (*p == '%')
-			{
-				count += _putchar('%');
-				continue;
-			}
-			while (get_flag(*p, &flags))
-				p++;
-			pfunc = get_print(*p);
-			count += (pfunc)
-				? pfunc(arguments, &flags)
-				: _printf("%%%c", *p);
-		} else
-			count += _putchar(*p);
+			putchar(*traverse);
+			traverse++;
+			stringCount++;
+		}
+		
+		if(*traverse == '\0'){
+		    break;
+		}
+		
+		traverse++;
+		
+		switch(*traverse)
+		{
+			case 'c' : i = va_arg(arg,int);	
+						putchar(i);
+						stringCount++;
+						break;
+						
+			case 'd':
+            case 'i': i = va_arg(arg,int); 	
+						if(i < 0)
+						{
+							i = -i;
+							putchar('-');
+						}
+						puts(convert(i,10));
+						stringCount++;
+						break;
+						
+			case 's': s = va_arg(arg,char *); 	
+						puts(s);
+						stringCount++;
+						break;
+						
+		}	
 	}
-	_putchar(-1);
-	va_end(arguments);
-	return (count);
+	
+	va_end(arg);
+	
+	return (stringCount);
+}
+char *convert(unsigned int num, int base)
+{
+	static char Representation[]= "0123456789ABCDEF";
+	static char buffer[50];
+	char *ptr;
+
+	ptr = &buffer[49];
+	*ptr = '\0';
+	
+	do
+	{
+		*--ptr = Representation[num%base];
+		num /= base;
+	}while(num != 0);
+	return(ptr);
 }
