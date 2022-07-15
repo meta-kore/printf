@@ -51,7 +51,11 @@ int _printf(char* format,...)
 			case 's': s = va_arg(arg,char *); 	
 						puts(s);
 						stringCount++;
-						break;		
+						break;
+			case 'b': i = va_arg(arg,int); 	
+						fputs(convert(i,2), stdout);
+						stringCount++;
+						break;
 		}	
 	}
 	
