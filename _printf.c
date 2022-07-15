@@ -1,10 +1,10 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdarg.h>		
+	
 
 int _printf(char *,...); 			
 char* convert(unsigned int, int); 
-	
+
+
 int _printf(char* format,...)
 {
 	char *traverse;
