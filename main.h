@@ -1,11 +1,10 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
-#include <stdio.h>
 #include <stdarg.h>
-
+#include <stdlib.h>
+/**
+ * Prototypes of fnctions used 
+ */
 int _putchar(char c);
-int _printf(char *,...);
-int _printf(char* format,...);
-
-#endif
+int _printf(const char *format, ...);
