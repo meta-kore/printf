@@ -6,5 +6,6 @@
 /**
  * Prototypes of fnctions used 
  */
+
 int _putchar(char c);
-int _printf(const char *format, ...);
+int _printf(char *,...); 
