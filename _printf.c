@@ -34,6 +34,7 @@ int _printf(char* format,...)
 		}
 		
 		traverse++;
+			
 		
 		switch(*traverse)
 		{
@@ -49,7 +50,7 @@ int _printf(char* format,...)
 						break;
 						
 			case 's': s = va_arg(arg,char *); 	
-						puts(s);
+						fputs(s, stdout);
 						stringCount++;
 						break;
 			case 'b': i = va_arg(arg,int); 	
