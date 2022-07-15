@@ -1,50 +1,79 @@
 #include "main.h"
-#include <stdarg.h>
 
 /**
  * _printf - prints to output according to format
  * @format: character string
  * Return: number of characters printed
- */
+ */	
 
-int _printf(const char *format, ...)
+int _printf(char *,...); 			
+char* convert(unsigned int, int); 
+
+
+int _printf(char* format,...)
 {
-	int i = 0, j = 0;
-	int (*f)(va_list);
-	va_list args;
-
-	va_start(args, format);
-	if (format == NULL || !format[i + 1])
-		return (-1);
-	while (format[i])
+	char *traverse;
+	unsigned int i;
+	char *s;
+	int stringCount = 0;
+	
+	va_list arg;
+	va_start(arg, format);
+	
+	for(traverse = format; *traverse != '\0'; traverse++)
 	{
-		if (format[i] == '%')
+		while( *traverse != '%' && *traverse != '\0')
 		{
-			if (format[i + 1])
-			{
-				if (format[i + 1] != 'c' && format[i + 1] != 's'
-				&& format[i + 1] != '%' && format[i + 1] != 'd'
-				&& format[i + 1] != 'i')
-				{
-					j += _putchar(format[i]);
-					j += _putchar(format[i + 1]);
-					i++;
-				}
-				else
-				{
-					f = get_func(&format[i + 1]);
-					j += f(args);
-					i++;
-				}
-			}
+			putchar(*traverse);
+			traverse++;
+			stringCount++;
 		}
-		else
+		
+		if(*traverse == '\0'){
+		    break;
+		}
+		
+		traverse++;
+		
+		switch(*traverse)
 		{
-			_putchar(format[i]);
-			j++;
-		}
-		i++;
+			case 'c' : i = va_arg(arg,int);	
+						putchar(i);
+						stringCount++;
+						break;
+						
+			case 'd':
+            case 'i': i = va_arg(arg,int); 	
+						fputs(convert(i,10), stdout);
+						stringCount++;
+						break;
+						
+			case 's': s = va_arg(arg,char *); 	
+						puts(s);
+						stringCount++;
+						break;
+						
+		}	
 	}
-	va_end(args);
-	return (j);
+	
+	va_end(arg);
+	
+	return (stringCount);
+}
+char *convert(unsigned int num, int base)
+{
+	static char Representation[]= "0123456789ABCDEF";
+	static char buffer[50];
+	char *ptr;
+	
+	ptr = &buffer[49];
+	*ptr = '\0';
+	
+	do
+	{
+		*--ptr = Representation[num%base];
+		num /= base;
+	}while(num != 0);
+	
+	return(ptr);
 }
