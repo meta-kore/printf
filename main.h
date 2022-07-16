@@ -28,5 +28,8 @@ int print_p(va_list p);
 int print_S(va_list S);
 int print_r(va_list r);
 int print_R(va_list R);
+int rev_str(va_list arg);
+int recursion_rev(char *str);
+int _strlen(char *s);
 
 #endif
