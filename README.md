@@ -1,5 +1,7 @@
 # printf
 
+<img src="assets/plate.gif" alt="Plate 10, printf: a format string is consumed token by token, with each argument used as its specifier is reached." width="100%">
+
 A from-scratch implementation of C's `printf`, written in C: `_printf(const char *format, ...)` writes formatted output to standard output and returns the number of characters printed.
 
 ```c
